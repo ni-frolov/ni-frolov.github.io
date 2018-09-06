@@ -1,1 +1,578 @@
-H W
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon"
+          type="image/png"
+          href="https://cdn.auth0.com/blog/aurelia-logo.png">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+    <script src="./main.js"></script>
+    <title>Code style guide</title>
+</head>
+<body>
+<div class="wrapper">
+    <div class="header">
+        <strong class="logo">
+            <a class="logo__link" href="#start">
+                <img
+                    class="logo__img"
+                    src="https://cdn.auth0.com/blog/aurelia-logo.png"
+                    alt="Aurelia"
+                    width="30px"
+                >
+                <span>NowInfinity style guid</span>
+            </a>
+        </strong>
+    </div>
+    <div class="main">
+        <div class="aside">
+            <button type="button" class="aside__menu-button">
+                <span class="aside__menu-hamburger"></span>
+            </button>
+            <ul class="contents-list">
+                <li>
+                    <a href="#type-script">Type Script</a>
+                    <ul>
+                        <li>
+                            <a href="#formatting">Formatting</a>
+                            <ul>
+                                <li>
+                                    <a href="#indentation">Block indentation</a>
+                                </li>
+                                <li>
+                                    <a href="#vertical-whitespace">Vertical whitespace</a>
+                                </li>
+                                <li>
+                                    <a href="#horizontal-whitespace">Horizontal whitespace</a>
+                                </li>
+                                <li>
+                                    <a href="#function-arguments">Function arguments</a>
+                                </li>
+                                <li>
+                                    <a href="#single-quotes">Single quotes</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#language-features">Language features</a>
+                            <ul>
+                                <li>
+                                    <a href="#variable-declarations">Local variable declarations</a>
+                                </li>
+                                <li>
+                                    <a href="#strict-comparison">Strict comparison</a>
+                                </li>
+                                <li>
+                                    <a href="#data-types">Data types</a>
+                                </li>
+                                <li>
+                                    <a href="#complex-data-types">Complex data types</a>
+                                </li>
+                                <li>
+                                    <a href="#data-types-any">Data types: 'Any'</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#html">HTML</a>
+                    <ul>
+                        <li>
+                            <a href="#html-formatting">HTML formatting</a>
+                            <ul>
+                                <li>
+                                    <a href="#vertical-whitespace-html">Vertical whitespace</a>
+                                </li>
+                                <li>
+                                    <a href="#html-element-arguments">HTML element arguments</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#review">Review</a>
+                </li>
+            </ul>
+        </div>
+        <div class="content">
+            <div class="content__holder">
+                <h1 id="start">Code style guide for NowInfinity</h1>
+                <h2 id="type-script">Type Script</h2>
+                <section>
+                    <h3 id="formatting">Formatting</h3>
+                    <article>
+                        <h4 id="indentation">Block indentation: +4 spaces</h4>
+                        <p>Each time a new block or block-like construct is opened, the indent increases by four spaces. When the block ends, the indent returns to the previous indent level. The indent level applies to both code and comments throughout the block.</p>
+                        <div class="code-example code-example_error">
+                            <div class="code-example__head">Bad practice</div>
+                            <div class="code-example__body">
+<pre>
+..export class SomeClass {
+..@observable activeForm: Form;
+
+..estateTypes = EstateTypes;
+
+..constructor(
+....private router: Router,
+....private epService: EstatePlanningService
+..) {
+....this.controller = this.controllerFactory.createForCurrentScope();
+..}
+
+..goToPackageDetails() {
+....this.router.navigateToRoute('package-details', {id: this.orderId ? this.orderId : 'update'});
+..}
+</pre>
+                            </div>
+                        </div>
+                        <div class="code-example">
+                            <div class="code-example__head">Good practice</div>
+                            <div class="code-example__body">
+<pre>
+....export class SomeClass {
+....@observable activeForm: Form;
+
+....estateTypes = EstateTypes;
+
+....constructor(
+........private router: Router,
+........private epService: EstatePlanningService
+....) {
+........this.controller = this.controllerFactory.createForCurrentScope();
+....}
+
+....goToPackageDetails() {
+........this.router.navigateToRoute('package-details', {id: this.orderId ? this.orderId : 'update'});
+....}
+</pre>
+                            </div>
+                        </div>
+                    </article>
+                    <article>
+                        <h4 id="vertical-whitespace">Vertical whitespace</h4>
+                        <p>A single blank line appears:</p>
+                        <ol>
+                            <li>
+                                <div>Between consecutive methods in a class or object literal</div>
+                                <ul>
+                                    <li>Exception: A blank line between two consecutive properties definitions in an object literal (with no other code between them) is optional. Such blank lines are used as needed to create logical groupings of fields.</li>
+                                </ul>
+                            </li>
+                            <li>Within method bodies, sparingly to create logical groupings of statements. Blank lines at the start or end of a function body are not allowed.</li>
+                            <li>Optionally before the first or after the last method in a class or object literal (neither encouraged nor discouraged).</li>
+                        </ol>
+                        <div class="code-example code-example_error">
+                            <div class="code-example__head">Bad practice</div>
+                            <div class="code-example__body">
+<pre>
+    export class SomeClass {
+        attached() {
+            this.activateScrollablePlugin();
+        }
+<mark class="comment"> <= empty line</mark>
+<mark class="comment"> <= empty line</mark>
+        public saveForm() {
+            this.orderData.SaveAndCompleteLater = true;
+            this.completeForm();
+        <mark class="error">}</mark> <mark class="comment"> <= no vertical whitespace</mark>
+        createPreview() {
+            this.epService.createPreview(this.estatePlanModel)
+                .then(response => FileHelper.download(response))
+                .catch(error => this.notificationService.error(error.Message));
+        }
+<mark class="comment"> <= empty line</mark>
+    }
+</pre>
+                            </div>
+                        </div>
+                        <div class="code-example">
+                            <div class="code-example__head">Good practice</div>
+                            <div class="code-example__body">
+<pre>
+    export class SomeClass {
+        attached() {
+            this.activateScrollablePlugin();
+        }
+
+        public saveForm() {
+            this.orderData.SaveAndCompleteLater = true;
+            this.completeForm();
+        }
+
+        createPreview() {
+            this.epService.createPreview(this.estatePlanModel)
+                .then(response => FileHelper.download(response))
+                .catch(error => this.notificationService.error(error.Message));
+        }
+    }
+</pre>
+                            </div>
+                        </div>
+                    </article>
+                    <article>
+                        <h4 id="horizontal-whitespace">Horizontal whitespace</h4>
+                        <p>Use of horizontal whitespace depends on location, and falls into three broad categories: leading (at the start of a line), trailing (at the end of a line), and internal. Leading whitespace (i.e., indentation) is addressed elsewhere. Trailing whitespace is forbidden.</p>
+                        <p>Beyond where required by the language or other style rules, and apart from literals, comments, and JSDoc, a single internal ASCII space also appears in the following places only.</p>
+                        <ol>
+                            <li>Separating any reserved word (such as <mark class="important">if</mark>, <mark class="important">for</mark>, or <mark class="important">catch</mark>) from an open parenthesis ( <mark class="important">(</mark> ) that follows it on that line.</li>
+                            <li>Separating any reserved word (such as <mark class="important">else</mark> or <mark class="important">catch</mark>) from a closing curly brace ( <mark class="important">}</mark> ) that precedes it on that line.</li>
+                            <li>
+                                <div>Before any open curly brace ( <mark class="important">{</mark> ), with two exceptions:</div>
+                                <ul>
+                                    <li>Before an object literal that is the first argument of a function or the first element in an array literal (e.g. <mark class="important">foo({a: [{c: d}]})</mark> ).</li>
+                                    <li>In a template expansion, as it is forbidden by the language (e.g. <mark class="important">abc${1 + 2}def</mark> ).</li>
+                                </ul>
+                            </li>
+                            <li>On both sides of any binary or ternary operator.</li>
+                            <li>After a comma ( <mark class="important">,</mark> ) or semicolon ( <mark class="important">;</mark> ). Note that spaces are never allowed before these characters.</li>
+                            <li>After the colon ( <mark class="important">:</mark> ) in an object literal.</li>
+                            <li>On both sides of the double slash ( <mark class="important">//</mark> ) that begins an end-of-line comment. Here, multiple spaces are allowed, but not required.</li>
+                            <li>After an open-JSDoc comment character and on both sides of close characters (e.g. for short-form type declarations or casts: <mark class="important">this.foo = /** @type {number} */ (bar);</mark> or <mark class="important">function(/** string */ foo) {</mark> ).</li>
+                        </ol>
+                        <div class="code-example code-example_error">
+                            <div class="code-example__head">Bad practice</div>
+                            <div class="code-example__body">
+<pre>
+    export class AllotmentExpanderCompany {
+
+        constructor(<mark class="error"> @newInstance public expander: GridColumnExpander, @newInstance public inlineEdit: InlineEdit, @newInstance private eventAggregator: EventAggregator</mark>) {
+        }
+
+    disableAmountUnpaidEvent<mark class="error">:S</mark>ubscription;
+        disableAmountUnpaid<mark class="error">:b</mark>oolean;
+
+        attached(<mark class="error">){</mark>
+<mark class="comment"> <= empty line</mark>
+            this.disableAmountUnpaidEvent =<mark class="error">  </mark>this.eventAggregator.subscribe('disableAmountUnpaid', (value) => {
+                this.disableAmountUnpaid = value;
+            });
+<mark class="comment"> <= empty line</mark>
+        }
+    }
+</pre>
+                            </div>
+                        </div>
+                        <div class="code-example">
+                            <div class="code-example__head">Good practice</div>
+                            <div class="code-example__body">
+<pre>
+    export class AllotmentExpanderCompany {
+        constructor(
+            @newInstance public expander: GridColumnExpander,
+            @newInstance public inlineEdit: InlineEdit,
+            @newInstance private eventAggregator: EventAggregator
+        ) {
+        }
+
+        disableAmountUnpaidEvent: Subscription;
+        disableAmountUnpaid: boolean;
+
+        attached() {
+            this.disableAmountUnpaidEvent = this.eventAggregator.subscribe('disableAmountUnpaid', (value) => {
+                this.disableAmountUnpaid = value;
+            });
+        }
+    }
+</pre>
+                            </div>
+                        </div>
+                    </article>
+                    <article>
+                        <h4 id="function-arguments">Function arguments</h4>
+                        <p>Prefer to put all function arguments on the same line as the function name. If doing so would exceed the 80-column limit, the arguments must be line-wrapped in a readable way. To save space, you may wrap as close to 80 as possible, or put each argument on its own line to enhance readability. Indentation should be four spaces. Aligning to the parenthesis is allowed, but discouraged. Below are the most common patterns for argument wrapping:</p>
+                        <div class="code-example code-example_error">
+                            <div class="code-example__head">Bad practice</div>
+                            <div class="code-example__body">
+<pre>
+    export class AllotmentExpanderCompany {
+
+        constructor(<mark class="error"> @newInstance public expander: GridColumnExpander, @newInstance public inlineEdit: InlineEdit, @newInstance private eventAggregator: EventAggregator</mark>) {
+        }
+    }
+</pre>
+                            </div>
+                        </div>
+                        <div class="code-example">
+                            <div class="code-example__head">Good practice</div>
+                            <div class="code-example__body">
+<pre>
+    export class AllotmentExpanderCompany {
+        constructor(
+            @newInstance public expander: GridColumnExpander,
+            @newInstance public inlineEdit: InlineEdit,
+            @newInstance private eventAggregator: EventAggregator
+        ) {
+        }
+    }
+</pre>
+                            </div>
+                        </div>
+                    </article>
+                    <article>
+                        <h4 id="single-quotes">Single quotes</h4>
+                        <p>Use the single quotes ( <mark class="important">'</mark> ) for strings instead of double quotes ( <mark class="important">"</mark> )</p>
+                        <div class="code-example code-example_error">
+                            <div class="code-example__head">Bad practice</div>
+                            <div class="code-example__body">
+<pre>
+    if(typeof(this.excludeRoles) == <mark class="error">"</mark>string<mark class="error">"</mark>)
+or
+    import { IndividualsService } from <mark class="error">"</mark>services/IndividualsService<mark class="error">"</mark>;
+</pre>
+                            </div>
+                        </div>
+                        <div class="code-example">
+                            <div class="code-example__head">Good practice</div>
+                            <div class="code-example__body">
+<pre>
+    if (typeof(this.excludeRoles) === 'string')
+or
+    import { IndividualsService } from 'services/IndividualsService';
+</pre>
+                            </div>
+                        </div>
+                    </article>
+                </section>
+                <section>
+                    <h3 id="language-features">Language features</h3>
+                    <article>
+                        <h4 id="variable-declarations">Local variable declarations</h4>
+                        <p><b>Use <mark class="important">const</mark> and <mark class="important">let</mark></b></p>
+                        <p>Declare all local variables with either <mark class="important">const</mark> or <mark class="important">let</mark>. Use const by default, unless a variable needs to be reassigned. The <mark class="important">var</mark> keyword must not be used.</p>
+                        <p><b>One variable per declaration</b></p>
+                        <p>Every local variable declaration declares only one variable: declarations such as <mark class="important">let a = 1, b = 2;</mark> are not used.</p>
+                        <div class="code-example code-example_error">
+                            <div class="code-example__head">Bad practice</div>
+                            <div class="code-example__body">
+<pre>
+    <mark class="error">var</mark> searchModel = this.individualsService.buildSearchModel(this.individualModel.complexFullName, this.excludeRoles);
+</pre>
+                            </div>
+                        </div>
+                        <div class="code-example">
+                            <div class="code-example__head">Good practice</div>
+                            <div class="code-example__body">
+<pre>
+    const searchModel = this.individualsService.buildSearchModel(this.individualModel.complexFullName, this.excludeRoles);
+</pre>
+                            </div>
+                        </div>
+                    </article>
+                    <article>
+                        <h4 id="strict-comparison">Strict comparison</h4>
+                        <p>Use <mark class="important">===</mark> and <mark class="important">!==</mark> comparison</p>
+                        <div class="code-example code-example_error">
+                            <div class="code-example__head">Bad practice</div>
+                            <div class="code-example__body">
+<pre>
+    if(typeof(this.excludeRoles) <mark class="error">==</mark> "string")
+or
+    return parseInt(this.titleAmount) <mark class="error">!=</mark> 0;
+</pre>
+                            </div>
+                        </div>
+                        <div class="code-example">
+                            <div class="code-example__head">Good practice</div>
+                            <div class="code-example__body">
+<pre>
+    if (typeof(this.excludeRoles) === "string")
+or
+    return parseInt(this.titleAmount) !== 0;
+</pre>
+                            </div>
+                        </div>
+                    </article>
+                    <article>
+                        <h4 id="data-types">Data types</h4>
+                        <p>Use data types for data.</p>
+                        <div class="code-example code-example_error">
+                            <div class="code-example__head">Bad practice</div>
+                            <div class="code-example__body">
+<pre>
+    validateChanged(newValu<mark class="error">e,</mark> oldValu<mark class="error">e){</mark>
+        if(!newValue)
+            return;
+        this.vc.validate().then(result => {
+            this.validate = false;
+        });
+    }
+</pre>
+                            </div>
+                        </div>
+                        <div class="code-example">
+                            <div class="code-example__head">Good practice</div>
+                            <div class="code-example__body">
+<pre>
+    validateChanged(newValue: string, oldValue: string): void {
+        if (!newValue) {
+            return;
+        }
+        this.vc.validate().then(result => {
+            this.validate = false;
+        });
+    }
+</pre>
+                            </div>
+                        </div>
+                    </article>
+                    <article>
+                        <h4 id="complex-data-types">Complex data types</h4>
+                        <p>If you've complex data type use data interface</p>
+                        <div class="code-example code-example_error">
+                            <div class="code-example__head">Bad practice</div>
+                            <div class="code-example__body">
+<pre>
+    change(newValu<mark class="error">e){</mark>
+        this.value = newValue;
+    }
+</pre>
+                            </div>
+                        </div>
+                        <div class="code-example">
+                            <div class="code-example__head">Good practice</div>
+                            <div class="code-example__body">
+<pre>
+    interface <mark class="important">NewValue</mark> {
+        oldValue: number;
+        title: string;
+        dataArr?: number[];
+    }
+
+    change(newValue: <mark class="important">NewValue</mark>) {
+        this.value = newValue;
+    }
+</pre>
+                            </div>
+                        </div>
+                    </article>
+                    <article>
+                        <h4 id="data-types-any">Data types: 'Any'</h4>
+                        <p>Do not use data types 'any', because it's way to the dark side. You would have a lot of problems related to data types later.</p>
+                        <p>If you've complex data type use data interface.</p>
+                        <div class="code-example code-example_error">
+                            <div class="code-example__head">Bad practice</div>
+                            <div class="code-example__body">
+<pre>
+    constructor(model: <mark class="error">any</mark>){
+    }
+</pre>
+                            </div>
+                        </div>
+                        <div class="code-example">
+                            <div class="code-example__head">Good practice</div>
+                            <div class="code-example__body">
+<pre>
+    interface <mark class="important">Model</mark> {
+        oldValue: number;
+        title: string;
+        dataArr?: number[];
+    }
+
+    constructor(model: <mark class="important">Model</mark>){
+    }
+</pre>
+                            </div>
+                        </div>
+                    </article>
+                </section>
+                <h2 id="html">HTML</h2>
+                <section>
+                    <h3 id="html-formatting">HTML formatting</h3>
+                    <article>
+                        <h4 id="vertical-whitespace-html">Vertical whitespace</h4>
+                        <p>Don't use empty lines.</p>
+                        <div class="code-example code-example_error">
+                            <div class="code-example__head">Bad practice</div>
+                            <div class="code-example__body">
+<pre>
+    &lt;div class="table-cell"&gt;
+<mark class="comment"> <= empty line</mark>
+        &lt;text-box
+                value.bind="item.Paid | decimalFormat"
+                input-value.bind="item.EditPaid"
+                save.call="$parent.trySubmit(item, 'Paid', item.EditPaid, 'decimal', $event)"
+                value-mask="$v"
+                input-params.bind="{type: 'number', min:'0', step:'0.0001'}"
+        &gt&lt;/text-box&gt;
+<mark class="comment"> <= empty line</mark>
+<mark class="comment"> <= empty line</mark>
+    &lt;/div&gt;
+</pre>
+                            </div>
+                        </div>
+                        <div class="code-example">
+                            <div class="code-example__head">Good practice</div>
+                            <div class="code-example__body">
+<pre>
+    &lt;div class="table-cell"&gt;
+        &lt;text-box
+                value.bind="item.Paid | decimalFormat"
+                input-value.bind="item.EditPaid"
+                save.call="$parent.trySubmit(item, 'Paid', item.EditPaid, 'decimal', $event)"
+                value-mask="$v"
+                input-params.bind="{type: 'number', min: '0', step: '0.0001'}"
+        &gt;&lt;/text-box&gt;
+    &lt;/div&gt;
+</pre>
+                            </div>
+                        </div>
+                    </article>
+                    <article>
+                        <h4 id="html-element-arguments">HTML element arguments</h4>
+                        <p>If the element has more than two arguments, the arguments must be line-wrapped in a readable way.</p>
+                        <div class="code-example code-example_error">
+                            <div class="code-example__head">Bad practice</div>
+                            <div class="code-example__body">
+<pre>
+    <mark class="error">&lt;li permission.bind="option.access" repeat.for="option of bulkMenu.options" click.trigger="callTriggerBundleChanges($event, option.value)"&gt;</mark>
+        &lt;a href="javascript:void()" if.bind="checkPermission(option)"&gt;
+            &lt;span class="ico ${option.icon}"&gt;${option.name}&lt;/span&gt;
+            &lt;p&gt;${option.description}&lt;/p&gt;
+        &lt;/a&gt;
+    &lt;/li&gt;
+</pre>
+                            </div>
+                        </div>
+                        <div class="code-example">
+                            <div class="code-example__head">Good practice</div>
+                            <div class="code-example__body">
+<pre>
+    &lt;li
+        permission.bind="option.access"
+        repeat.for="option of bulkMenu.options"
+        click.trigger="callTriggerBundleChanges($event, option.value)"
+    &gt;
+        &lt;a href="javascript:void()" if.bind="checkPermission(option)"&gt;
+            &lt;span class="ico ${option.icon}"&gt;${option.name}&lt;/span&gt;
+            &lt;p&gt;${option.description}&lt;/p&gt;
+        &lt;/a&gt;
+    &lt;/li&gt;
+</pre>
+                            </div>
+                        </div>
+                    </article>
+                </section>
+                <h2 id="review">Review</h2>
+                <section>
+                    <article>
+                        <h3>File after your work on it, should be better than before you!</h3>
+                        <h4>You should fix all code style issues, and not only your issues, before then you'll make a 'Pull Request'.</h4>
+                        <p>All Pull Requests with style issues would be rejected.</p>
+                        <p>If you'll don't follow this rules you would be punished!</p>
+                    </article>
+                </section>
+            </div>
+            <div class="footer">
+                <p align="center">&copy; 2018 All examples from NowInfinity project only!</p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
